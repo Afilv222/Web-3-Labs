@@ -19,7 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* add code here */
 
+   //Since titles is simply an array of strings, it can be easily sorted.
+   const sortedTitles = titles.sort();
+   console.log(sortedTitles); 
 
+   // This will sort the object paintings by years, from oldest to newest 
+   /*
+   const paintingsSortedByYear = paintings.sort( function(a,b) {
+      if (a.year < b.year)
+      return -1;
+      else if (a.year > b.year)
+      return 1;
+      else
+      return 0;
+     } );
+    */
+
+   // This will sort the object paintings by years, from oldest to newest but using ternary operator and arrow functions 
+   const paintingsSortedByYear = paintings.sort((a,b) =>  {
+      return a.year < b.year ? -1 : 1; 
+   });
+
+   console.log(paintingsSortedByYear);
+
+   
 
 
 
