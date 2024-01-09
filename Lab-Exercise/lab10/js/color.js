@@ -13,15 +13,6 @@ class Color {
       let b = this.rgb[2];
       return 0.2126*r + 0.7152*g + 0.0722*b;
    }
-
-   createBox(container) {       
-      const div = document.createElement('div');       
-      div.classList.add('box');       
-      div.style.backgroundColor = this.hex;       
-      if (this.luminance() < 80) div.style.color = 'white';       
-      div.textContent = this.luminance().toFixed(2);       
-      container.appendChild(div);    
-   } 
 }
 
 // this data array is private to the module
@@ -51,7 +42,3 @@ const sampleColors =  [
 ];
 
 // add module code here
-const getSampleColors = () => sampleColors; 
-
-// export default getSampleColors;
-export { Color, getSampleColors};

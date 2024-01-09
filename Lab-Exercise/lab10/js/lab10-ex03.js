@@ -1,12 +1,18 @@
 // import required info from your module
-// import getSampleColors  from "./color.js";
-// import {getSampleColors}  from "./color.js";
-import * as colors from "./color.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-   // use that function 
-   const container = document.querySelector("#list");
-   colors.getSampleColors().forEach( (c) => { 
-      c.createBox(container); 
-   });   
+   
+
+   
+   
+   function createBox(hex,luminance) {
+      const div = document.createElement('div');
+      div.classList.add('box');
+      div.style.backgroundColor = hex;
+      if (luminance < 80) div.style.color = 'white';
+      div.textContent = luminance.toFixed(2);
+      document.querySelector("#list").appendChild(div);
+   }
+   
 });
