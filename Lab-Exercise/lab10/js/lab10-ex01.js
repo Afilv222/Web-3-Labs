@@ -115,28 +115,4 @@ document.addEventListener('DOMContentLoaded', () => {
    const list = document.querySelector("#list");
    artistDOMList.forEach( li => { list.appendChild(li)});
 
-   // TEST YOUR KNOWLEDGE #1
-
-   for(let stock of stocks){
-      stock['total'] = stock['price'] * stock['units'];  
-   }
-   console.log('For of loop')
-   console.log(stocks)
-
-   stocks.forEach(stock => stock['total'] = stock['price'] * stock['units'])
-   
-   console.log('For each loop')
-   console.log(stocks)
-
-   const findCatSymbol = stocks.find( stock => stock['symbol'] == 'CAT')
-   console.log(findCatSymbol)
-
-   for(let s of stocks){
-      if (s['symbol'] == 'CAT')
-         console.log(s)
-   }
-
-   con
-
-
 });
