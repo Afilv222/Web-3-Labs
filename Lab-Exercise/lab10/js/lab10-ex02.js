@@ -1,4 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
+// Classes are just syntactical sugar, meaning that your Color class is simply an alternate way
+// of creating a function constructor with prototype functions.
+/*
+class Color {
+   constructor(name, hex, rgb) {
+   this.name = name;
+   this.hex = hex;
+   this.rgb = rgb;
+   }
+   
+   luminance() {
+   let r = this.rgb[0];
+   let g = this.rgb[1];
+   let b = this.rgb[2];
+   return 0.2126*r + 0.7152*g + 0.0722*b;
+   }
+} 
+*/     
 
 // function constructor for Color objects
 function Color(name, hex, rgb) {
@@ -7,13 +25,36 @@ function Color(name, hex, rgb) {
    this.rgb = rgb;
 } 
 
+function createBox(hex,luminance) {
+   const div = document.createElement('div');
+   div.classList.add('box');
+   div.style.backgroundColor = hex;
+   div.textContent = luminance.toFixed(2);
+   
+   //black text is difficult to read against a dark background
+   if (luminance < 80) 
+      div.style.color = 'white'; 
+   
+      document.querySelector("#list").appendChild(div);
+  }
+
 // simple luminosity formula from https://en.wikipedia.org/wiki/Relative_luminance
 // a more accurate version would linearize the rgb first: see https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color)
-
-// add your prototype code here ... 
+// add your prototype code here ...
+Color.prototype.luminance = function () {
+   let r = this.rgb[0];
+   let g = this.rgb[1];
+   let b = this.rgb[2];
+   return 0.2126*r + 0.7152*g + 0.0722*b;
+  }
 
 // add you prototype testing code here ...
-
+const light = new Color("light", "#f2f1e6", [250,247,230] );
+console.log( light.luminance() );
+const mid = new Color("mid", "#aba798", [171,167,152] );
+console.log( mid.luminance() );
+const dark = new Color("dark", "#231f20", [45,31,32] );
+console.log( dark.luminance() ); 
 // add your class definition here ...
 
 // precreated array of colors
@@ -45,6 +86,13 @@ const colors =  [
 
 // add loop here
 
+colors.forEach( (c) => {
+   console.log(c.name, c.luminance());
+  });
+
+colors.forEach( (c) => {
+   createBox(c.hex, c.luminance());
+  }); 
    
    
 });
