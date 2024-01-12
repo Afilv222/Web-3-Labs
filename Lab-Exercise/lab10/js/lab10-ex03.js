@@ -1,11 +1,14 @@
 // import required info from your module
-import getSampleColors from "./color";
+//import getSampleColors from "./color.js";
+//import { getSampleColors } from "./color.js";
+import * as colors from "./color.js";
 
 document.addEventListener("DOMContentLoaded", () => {
    
    const container = document.querySelector("#list");
    
-   getSampleColors().forEach( (c) => {
+   colors.getSampleColors().forEach( (c) => {
+      //console.log(c)
       c.createBox(container);
    });
 

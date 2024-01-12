@@ -55,4 +55,5 @@ const sampleColors =  [
 //Make a arrow function 
 const getSampleColors = () => sampleColors;
 
-export default getSampleColors; 
+//export default getSampleColors; 
+export { Color, getSampleColors }; 
