@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
    // now loop through the sample gallery data calling render and list.appendChild
    getSampleGalleries().forEach(gallery => {
+      //prints gallery object
       console.log(gallery)
       list.appendChild(gallery.render())
+
    })
     
 
