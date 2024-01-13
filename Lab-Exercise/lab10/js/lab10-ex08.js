@@ -2,13 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     
    // the URL for our data
    // if HTTPS certificate has expired, then change protocol from https to http
-   const endpoint = 'https://www.randyconnolly.com/funwebdev/3rd/api/movie/movies.php?id=ALL';
+   const endpoint = 'http://www.randyconnolly.com/funwebdev/3rd/api/movie/movies.php?id=ALL';
 
    // begin with an empty movies array
    const movies = [];
 
    // hide form and display loading animation
-
+    document.querySelector("form.box").style.display = "none";
+    document.querySelector("#movieLoading").style.display = "block";
     
 
    // fetch from API will populate this empty array using spread operator
@@ -16,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
      .then(response => response.json())
      .then(data => {
          // show form and hide animation
-       
+        document.querySelector('form.box').style.display = 'block'; 
+        document.querySelector("#movieLoading").style.display = "none";
          movies.push(...data);
 
      } )
