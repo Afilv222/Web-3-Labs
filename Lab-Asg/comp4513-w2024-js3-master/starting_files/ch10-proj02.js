@@ -5,6 +5,32 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	const url = 'https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php';
 
+   const playList = document.querySelector('#playList');
+   playList.addEventListener('change',  (e) =>{ 
+      let newurl = url 
+
+      if (e.target.value != 0) {
+         newurl += `?name=${e.target.value}`
+         
+         fetch(newurl)
+         .then(response => response.json())
+         .then(data => {console.log(data)})
+         .catch(error => console.error(error));
+
+      }
+   })
+   
+
+   /*
+   fetch(url)
+   .then(response => response.json())
+   .then(data => {console.log(data)})
+   .catch(error => console.error(error));
+   */
+
+
+
+
    /*
      To get a specific play, add play name via query string, 
 	   e.g., url = url + '?name=hamlet';
