@@ -17,16 +17,22 @@ class Painting {
       divLeft.appendChild(img);
 
       let divRight = document.createElement('div');
+      
       let h2 = document.createElement('h2');
       h2.textContent = this.title;
+      
       let h3 = document.createElement('h3');
       h3.textContent = `${this.artist} (${this.year})`;
+      
       let p = document.createElement('p');
       p.textContent = this.description;
+      
       let button = document.createElement('button');
       button.textContent = "Add to Favorites";
       button.setAttribute('data-id', this.id);
+      
       let span = document.createElement('span');
+      
       divRight.appendChild(h2);
       divRight.appendChild(h3);
       divRight.appendChild(p);
