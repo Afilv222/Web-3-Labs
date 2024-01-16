@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
    const continentAPI = 'https://www.randyconnolly.com/funwebdev/3rd/api/travel/continents.php';
    const userAPI = 'https://www.randyconnolly.com/funwebdev/3rd/api/travel/users.php';
    const photoAPI = 'https://www.randyconnolly.com/funwebdev/3rd/api/travel/images.php';
-   const imageURL = 'https://www.randyconnolly.com/funwebdev/3rd/images/travel/square150/';   
+   const imageURL = 'http://www.randyconnolly.com/funwebdev/3rd/images/travel/square150/';   
    
    const continents = document.querySelector('#continents');
    const countries = document.querySelector('#countries');
@@ -19,9 +19,18 @@ document.addEventListener("DOMContentLoaded", function() {
    }
 
    function displayCountrySelection(){
+      document.querySelector('#fetchButton').style.display = "none";
       document.querySelector('#loader2').style.display = "none";
-      document.querySelector('main').style.display = "block"; 
+      document.querySelector('main').style.display = "block";
+      document.querySelector('#filters').style.display = "block"; 
+      //document.querySelector('#results').style.display = "block"; 
    }
+
+   function displayResults(){
+      document.querySelector('#loader2').style.display = "none";
+      document.querySelector('#results').style.display = "block";
+   }
+
 
    function loadingAnimation1(){
       loader = document.querySelector('#loader1')
@@ -29,8 +38,25 @@ document.addEventListener("DOMContentLoaded", function() {
       setTimeout( () => {
          loader.style.display = "none";
          displayCountrySelection()
-         }, 500);
+         }, 600);
 
+   }
+
+   function loadingAnimation2(data){
+      loader = document.querySelector('#loader2')
+      loader.style.display = 'block'
+      document.querySelector('#results').style.display = "none";
+
+
+      return new Promise((resolve,reject) =>{
+         setTimeout( () => {
+            loader.style.display = "none";
+            displayResults()
+            resolve(data)
+            }, 100); 
+      })
+      
+   
    }
 
    async function getData(api){
@@ -42,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
    }
 
    function setContinentFilter(continent){
-      //continents.replaceChildren();
 
       let sortedContinent = sortFilters(continent) 
 
@@ -56,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
    }
 
    function setCountriesFilter(countrie){
-      countries.replaceChildren();
 
       let sortedCountries = sortFilters(countrie) 
       
@@ -71,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
    function setCitiesFilter(citie){
-      cities.replaceChildren();
       
       let sortedCities = sortFilters(citie) 
       
@@ -85,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
    }
 
    function setUsersFilter(user){
-      users.replaceChildren();
 
       let sortedUser = sortFilters(user)      
 
@@ -98,6 +120,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
    }
 
+   function createImages(images){
+      let result = document.querySelector('#results')
+   
+      // first remove all existing options from list
+      result.replaceChildren();
+
+      images.forEach(i => {
+         let img = document.createElement('img')
+         img.src = `${imageURL}/${i.filename}`
+         img.title = i.title 
+         img.alt = i.title
+         result.appendChild(img)
+
+      })
+   }
 
 
    function sortFilters(array){
@@ -123,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
          const usersData = await getData(userAPI);
          const photosData = await getData(photoAPI); 
 
-         const largePromise = Promise.all([continentsData, countriesData,citiesData,usersData,photosData])
+         const largePromise = Promise.all([continentsData, countriesData,citiesData,usersData])
         
         largePromise.then(results => {
 
@@ -134,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function() {
             setCountriesFilter(countriesData)
             setCitiesFilter(citiesData)
             setUsersFilter(usersData)
-            //setPhotos(photosData)
         })
 
       } catch (error) {
@@ -148,7 +184,48 @@ document.addEventListener("DOMContentLoaded", function() {
    hideCountrySelection()
 
    document.querySelector('#fetchButton').addEventListener('click', displayContentsFilters)
-
+   document.querySelector('#continents').addEventListener('change', (e) =>{
+      if(e.target.value != 0){
+      
+         fetch(photoAPI+`?continent=${e.target.value}`)
+         .then(loadingAnimation2)
+         .then(response => response.json())
+         .then(data => {return [...data]})
+         .then(loadingAnimation2)
+         .then(createImages)
+         //.then(loadingAnimation2)
+      }
+   })
+   document.querySelector('#countries').addEventListener('change', (e) =>{
+      if(e.target.value != 0){
+         
+         fetch(photoAPI+`?iso=${e.target.value}`)
+         .then(response => response.json())
+         .then(data => {return [...data]})
+         .then(loadingAnimation2)
+         .then(createImages)
+      }
+   } )
+   document.querySelector('#cities').addEventListener('change', (e) =>{
+      if(e.target.value != 0){
+         
+         fetch(photoAPI+`?city=${e.target.value}`)
+         .then(response => response.json())
+         .then(data => {return [...data]})
+         .then(loadingAnimation2)
+         .then(createImages)
+      }
+   })
+   document.querySelector('#users').addEventListener('change', (e) => {
+      if(e.target.value != 0){
+        
+         fetch(photoAPI+`?user=${e.target.value}`)
+         .then(response => response.json())
+         .then(data => {return [...data]})
+         .then(loadingAnimation2)
+         .then(createImages)
+      }
+   })
 
    
    
