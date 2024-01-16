@@ -43,9 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
    function setContinentFilter(continent){
       //continents.replaceChildren();
-      const sorted = continent.sort(c => c.name)
 
-      sorted.forEach(c => {
+      let sortedContinent = sortFilters(continent) 
+
+      sortedContinent.forEach(c => {
          let option = document.createElement('option')
          option.value = c.code;
          option.textContent = c.name;
@@ -57,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
    function setCountriesFilter(countrie){
       countries.replaceChildren();
 
-      countrie.forEach(c => {
+      let sortedCountries = sortFilters(countrie) 
+      
+      sortedCountries.forEach(c => {
          let option = document.createElement('option')
          option.value = c.iso;
          option.textContent = c.name;
@@ -70,11 +73,9 @@ document.addEventListener("DOMContentLoaded", function() {
    function setCitiesFilter(citie){
       cities.replaceChildren();
       
-      let sorted = citie.sort((a, b) => a.name.localeCompare(b.name))
+      let sortedCities = sortFilters(citie) 
       
-      
-      console.log(sorted)
-      sorted.forEach(c => {
+      sortedCities.forEach(c => {
          let option = document.createElement('option')
          option.value = c.id;
          option.textContent = c.name;
@@ -86,15 +87,25 @@ document.addEventListener("DOMContentLoaded", function() {
    function setUsersFilter(user){
       users.replaceChildren();
 
-      let sorted = citie.sort((a, b) => a.name.localeCompare(b.name))      
+      let sortedUser = sortFilters(user)      
 
-      user.forEach(u => {
+      sortedUser.forEach(u => {
          let option = document.createElement('option')
          option.value = u.id;
          option.textContent = u.lastName;
          users.appendChild(option); 
       })
 
+   }
+
+
+
+   function sortFilters(array){
+
+      // This will check if at least one obj in the array has a key called name, this will return boolean value 
+      const nameKeyExists = array.some(obj => obj.hasOwnProperty('name'));
+
+      return nameKeyExists ? array.sort((a, b) => a.name.localeCompare(b.name)) : array.sort((a, b) => a.lastName.localeCompare(b.lastName))
    }
 
 
@@ -115,6 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
          const largePromise = Promise.all([continentsData, countriesData,citiesData,usersData,photosData])
         
         largePromise.then(results => {
+
+            
             const [continentsData, countriesData,citiesData,usersData,photosData] = results;
             
             setContinentFilter(continentsData)
