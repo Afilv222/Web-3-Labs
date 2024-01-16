@@ -3,13 +3,14 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 	
-	const url = 'https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php';
+	const url = 'http://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php';
 
    const playList = document.querySelector('#playList');
    playList.addEventListener('change',  (e) =>{ 
       let newurl = url 
 
       if (e.target.value != 0) {
+         console.log(newurl)
          newurl += `?name=${e.target.value}`
          
          fetch(newurl)
