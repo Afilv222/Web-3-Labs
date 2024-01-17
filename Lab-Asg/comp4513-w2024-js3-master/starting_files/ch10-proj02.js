@@ -1,77 +1,84 @@
 
-import {Play,Act,Scene}  from "./play-module.js";
+import {Play,Act,Scene} from "./play-module.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
 	
 	const url = 'http://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php';
+   let playClass = null  
+   let actClass = null
+   let sceneClass = null
 
    document.querySelector('#playList').addEventListener('change', fetchContent)
+   document.querySelector('#actList').addEventListener('change', (e) => {
 
+      if(e.target.value == e.)
+      
+   })
    
    
-   function fetchContent(event){
+   async function getData(api){
+      const response = await fetch(api);
+      
+      const data = await response.json();
+
+      return data;
+   }
+
+
+   async function fetchContent(event){
       
       let newurl = url
 
       if (event.target != 0) {
          newurl += `?name=${event.target.value}`
          
-         fetch(newurl)
-         .then(response => response.json())
-         .then(shakespeareContent)
-         .then(playContent)
-         .then(actContent)
-         .then(sceneContent)
-         .catch(error => console.error(error));
+         const data = await getData(newurl);
+         
+         playClass = new Play(data)
 
-      } 
-
-   }
-
-   function shakespeareContent(data){
-      return data   
-   }
-
-   function playContent(data){
-
-      const play = data.acts
-      const act = play.map(scene => scene.scenes)
-      const scene = act.map(a => {
-         a.forEach(speech => {
-            speech.name
-         })
-      })
-
-      console.log(play)
-      console.log(act)
-      console.log(scene)
+         setSceneFilters()
+         setActFilters()
+         
+         
+      }
 
 
-      return new Play(data.acts)  
-   }
-
-   function actContent(play){
-      
-      //console.log(play.act)
-      return data.map(scene => new Act(scene.scenes))
    }
    
-   function sceneContent(data){
-      //console.log(data.map(speech => speech.speeches))
-      return data.map(speech => new Scene(speech.speeches))
+   function setActFilters(){
+      
+
+      document.querySelector('#actList').replaceChildren()
+      
+      playClass.act.forEach(a => {
+          let actList = document.querySelector('#actList')
+          let option = document.createElement('option')
+          option.value = a.name;
+          option.textContent = a.name;
+          actList.appendChild(option);
+      });
+
    }
 
-   /*
-   fetch(url)
-   .then(response => response.json())
-   .then(data => {console.log(data)})
-   .catch(error => console.error(error));
-   */
 
 
 
+   function setSceneFilters(){
+       
+         document.querySelector('#sceneList').replaceChildren()
 
+         playClass.act[0].scene.forEach(s => {
+             let sceneList = document.querySelector('#sceneList')
+             let option = document.createElement('option')
+            // option.value = c.;
+
+             option.textContent = s.scene.name;
+             sceneList.appendChild(option); 
+         })
+      
+   }
+  
    /*
      To get a specific play, add play name via query string, 
 	   e.g., url = url + '?name=hamlet';
