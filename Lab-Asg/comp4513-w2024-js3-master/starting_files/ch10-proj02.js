@@ -11,9 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
    document.querySelector('#playList').addEventListener('change', fetchContent)
    document.querySelector('#actList').addEventListener('change', (e) => {
-
-      if(e.target.value == e.)
       
+    playClass.act.find(act => {
+      
+      if(e.target.value == act.name){
+         setSceneFilters1(act)
+      }
+     })
+
    })
    
    
@@ -61,7 +66,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
    }
 
+   function setSceneFilters1(currentAct){
+       
+      document.querySelector('#sceneList').replaceChildren()
 
+      currentAct.scene.forEach(s => {
+          let sceneList = document.querySelector('#sceneList')
+          let option = document.createElement('option')
+         // option.value = c.;
+
+          option.textContent = s.scene.name;
+          sceneList.appendChild(option); 
+      })
+   
+   }
 
 
    function setSceneFilters(){
@@ -79,6 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
       
    }
   
+   function setPlayContent(){
+      let playHere = document.querySelector('#playHere')
+      let playTitle = document.createElement('h2')
+     // playTitle = 
+      let div = document.createElement('div')
+      //div = classList 
+   }
    /*
      To get a specific play, add play name via query string, 
 	   e.g., url = url + '?name=hamlet';
