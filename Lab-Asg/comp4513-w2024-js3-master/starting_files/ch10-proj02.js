@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
       //if (actFirstChild == 'ACT I'){
          //console.log(play.act.find(a => a.name == actFirstChild))
          
-         h3.textContent = playClass.getFirstActName(document.querySelector('#actList').value)
+         h3.textContent = playClass.getFirstActName(currAct)
          h4.textContent = playClass.getPlayFirstActSceneName(currAct,currScene)
          sceneTitle.textContent = playClass.getPlayFirstActSceneTitle(currAct,currScene)
          stageDirection.textContent = playClass.getPlayFirstActSceneStage(currAct,currScene)
