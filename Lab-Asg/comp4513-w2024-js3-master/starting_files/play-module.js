@@ -13,33 +13,32 @@ class Play {
 
     }
 
+    getFirstAct(){
+        return this.act[0]
+      }
     
 
-    getActName(actName){
-        return this.act.map(s => {
-            if(actName == s.name){
-                    s.scenes.forEach(scenes => {
-                    let sceneList = document.querySelector('#sceneList')    
-                    let option = document.createElement('option')
-                    option.textContent = scenes.name;
-                    sceneList.appendChild(option); 
-                })   
-            } 
-        })
-    }
+      getFirstActName(){
+        return this.act[0].name
+      }
+    
 
+      getPlayFirstActSceneName(){
+        return this.act[0].scene[0].name
+      }
 
-    setActFilters(play){
-      
-        this.act.forEach(a => {
-            let actList = document.querySelector('#actList')
-            let option = document.createElement('option')
-            option.value = a.name;
-            option.textContent = a.name;
-            actList.appendChild(option);
-        });
-           
-    }
+      getPlayFirstActSceneTitle(){
+        return this.act[0].scene[0].title
+      }
+    
+      getPlayFirstActSceneStage(){
+        return this.act[0].scene[0].stageDirection
+      }
+
+      getPlayFirstActSceneSpeech(){
+        return this.act[0].scene[0].speech
+      }
+    
 
 }
 
@@ -47,20 +46,12 @@ class Act {
     constructor(act) {
         this.name = act.name;
         this.scene = [] 
-        
+
         act.scenes.forEach(scene => this.scene.push(new Scene(scene)))    
     }
 
-    setSceneFilters(currentScene){
-        console.log(this.scene)
-        currentScene.forEach(array => array.forEach(scenes => {
-            let sceneList = document.querySelector('#sceneList')
-            let option = document.createElement('option')
-           // option.value = c.;
-            option.textContent = scenes.name;
-            sceneList.appendChild(option); 
-        }))
-    }
+
+
 }
 
 
@@ -68,12 +59,16 @@ class Act {
 class Scene {
 
     constructor(scene) {
-       this.scene = scene;         
+       this.name = scene.name;
+       this.speech = scene.speeches;
+       this.stageDirection = scene.stageDirection
+       this.title = scene.title
+
     }
 
 
-    getSpeeches(){
-        return this.scene.speeches.map(s => s)
+    getSpeechName(){
+        return this.name
     }
 }
 
