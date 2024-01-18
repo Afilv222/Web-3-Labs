@@ -15,21 +15,40 @@ document.addEventListener("DOMContentLoaded", function() {
     playClass.act.find(act => {
       if(e.target.value == act.name){
          setSceneFilter(act)
-         setPlayContent()
+         setPlayContent(e)
       }
      })
 
    })
 
    document.querySelector('#sceneList').addEventListener('change', (e) =>{
-      setPlayContent()
+      setPlayContent(e)
    })
 
    document.querySelector('#btnHighlight').addEventListener('click', (e) =>{
       console.log('hello world')
    })
    
-   
+   document.querySelector('#playerList').addEventListener('change', (e) =>{
+      setPlayContent(e)
+
+   })
+
+
+
+
+   function getSpeech(e){
+      let currSpeech = playClass.getPlayFirstActSceneSpeech(document.querySelector('#actList').value,document.querySelector('#sceneList').value)
+      if(e.target.id == 'playerList'){
+         return currSpeech.filter(s => s.speaker === e.target.value)
+      }else{
+         return currSpeech
+      }
+   }
+
+
+
+
    async function getData(api){
       const response = await fetch(api);
       
@@ -55,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
          defaultActFilter()
          defaultSceneFilters()
          setPersonaFilter()
-         setPlayContent() 
+         setPlayContent(event) 
          
          
       }
@@ -118,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
    }
   
-   function setPlayContent(){
+   function setPlayContent(e){
      
       document.querySelector('#playHere').replaceChildren()
 
@@ -157,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
          sceneHere.appendChild(sceneTitle)
          sceneHere.appendChild(stageDirection)
 
-         playClass.getPlayFirstActSceneSpeech(currAct,currScene).forEach(s =>{
+         getSpeech(e).forEach(s =>{
             
             let speech = document.createElement('div')
             speech.className = 'speech'
