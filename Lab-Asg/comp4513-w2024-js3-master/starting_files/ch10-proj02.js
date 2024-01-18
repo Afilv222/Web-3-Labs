@@ -14,15 +14,19 @@ document.addEventListener("DOMContentLoaded", function() {
       
     playClass.act.find(act => {
       if(e.target.value == act.name){
-         console.log(document.querySelector('#actList').value)
-         let s1 = document.querySelector('#sceneList').value
-         console.log(act.scene.find(s => s.name == s1))
-         console.log(act)
          setSceneFilter(act)
-         //setPlayContent(act)
+         setPlayContent()
       }
      })
 
+   })
+
+   document.querySelector('#sceneList').addEventListener('change', (e) =>{
+      setPlayContent()
+   })
+
+   document.querySelector('#btnHighlight').addEventListener('click', (e) =>{
+      console.log('hello world')
    })
    
    
@@ -47,9 +51,11 @@ document.addEventListener("DOMContentLoaded", function() {
          playClass = new Play(data)
 
          console.log(playClass)
-         defaultSceneFilters()
+         //defaultSceneFilters()
          defaultActFilter()
-         setPlayContent(playClass) 
+         defaultSceneFilters()
+         setPersonaFilter()
+         setPlayContent() 
          
          
       }
@@ -85,6 +91,17 @@ document.addEventListener("DOMContentLoaded", function() {
    
    }
 
+   function setPersonaFilter(){
+      document.querySelector('#playerList').replaceChildren()
+
+      playClass.persona.forEach(p => {
+         let playerList = document.querySelector('#playerList')
+         let option = document.createElement('option')
+
+         option.textContent = p.player;
+         playerList.appendChild(option);
+      })
+   }
 
    function defaultSceneFilters(){
        
@@ -101,13 +118,15 @@ document.addEventListener("DOMContentLoaded", function() {
       
    }
   
-   function setPlayContent(play){
+   function setPlayContent(){
      
       document.querySelector('#playHere').replaceChildren()
-      let actFirstChild = document.querySelector('#actList').firstChild.value
+
+      let currAct = document.querySelector('#actList').value
+      let currScene = document.querySelector('#sceneList').value
       let playHere = document.querySelector('#playHere')
       let playTitle = document.createElement('h2')
-      playTitle.textContent = play.title
+      playTitle.textContent = playClass.title
       let actHere = document.createElement('article')
       actHere.id = 'actHere'
       let h3 = document.createElement('h3')
@@ -123,15 +142,14 @@ document.addEventListener("DOMContentLoaded", function() {
       let stageDirection = document.createElement('p')
       stageDirection.className = 'direction'
 
-      console.log(playClass.getFirstAct())
-      
-      if (actFirstChild == 'ACT I'){
-         console.log(play.act.find(a => a.name == actFirstChild))
+
+      //if (actFirstChild == 'ACT I'){
+         //console.log(play.act.find(a => a.name == actFirstChild))
          
-         h3.textContent = playClass.getFirstActName()
-         h4.textContent = playClass.getPlayFirstActSceneName()
-         sceneTitle.textContent = playClass.getPlayFirstActSceneTitle()
-         stageDirection.textContent = playClass.getPlayFirstActSceneStage()
+         h3.textContent = playClass.getFirstActName(document.querySelector('#actList').value)
+         h4.textContent = playClass.getPlayFirstActSceneName(currAct,currScene)
+         sceneTitle.textContent = playClass.getPlayFirstActSceneTitle(currAct,currScene)
+         stageDirection.textContent = playClass.getPlayFirstActSceneStage(currAct,currScene)
 
          actHere.appendChild(h3)
          actHere.appendChild(sceneHere)
@@ -139,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
          sceneHere.appendChild(sceneTitle)
          sceneHere.appendChild(stageDirection)
 
-         playClass.getPlayFirstActSceneSpeech().forEach(s =>{
+         playClass.getPlayFirstActSceneSpeech(currAct,currScene).forEach(s =>{
             
             let speech = document.createElement('div')
             speech.className = 'speech'
@@ -168,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
          playHere.appendChild(playTitle)
          playHere.appendChild(actHere)
          
-      }
+      //}
       
       //playHere.appendChild(playTitle)
       //div = classList 

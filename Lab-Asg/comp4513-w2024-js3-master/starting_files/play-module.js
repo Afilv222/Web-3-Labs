@@ -18,25 +18,31 @@ class Play {
       }
     
 
-      getFirstActName(){
-        return this.act[0].name
+      getFirstActName(curName){
+        return this.act.find(a => a.name == curName).name
+        //return this.act[0].name
       }
     
 
-      getPlayFirstActSceneName(){
-        return this.act[0].scene[0].name
+      getPlayFirstActSceneName(actName,sceneName){
+       
+        let ca = this.act.find(a => a.name == actName)
+       return ca.scene.find(s => s.name == sceneName).name
       }
 
-      getPlayFirstActSceneTitle(){
-        return this.act[0].scene[0].title
+      getPlayFirstActSceneTitle(actName,sceneName){
+        let b = this.act.find(a => a.name == actName)
+        return b.scene.find(s => s.name == sceneName).title
       }
     
-      getPlayFirstActSceneStage(){
-        return this.act[0].scene[0].stageDirection
+      getPlayFirstActSceneStage(actName,sceneName){
+        let c = this.act.find(a => a.name == actName)
+        return c.scene.find(s => s.name == sceneName).stageDirection
       }
 
-      getPlayFirstActSceneSpeech(){
-        return this.act[0].scene[0].speech
+      getPlayFirstActSceneSpeech(actName,sceneName){
+        let d = this.act.find(a => a.name == actName)
+        return d.scene.find(s => s.name == sceneName).speech
       }
     
 
