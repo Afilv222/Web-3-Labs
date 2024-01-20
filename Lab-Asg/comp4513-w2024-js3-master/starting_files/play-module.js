@@ -18,31 +18,31 @@ class Play {
       }
     
 
-      getFirstActName(curName){
+      getActName(curName){
         return this.act.find(a => a.name == curName).name
         //return this.act[0].name
       }
     
 
-      getPlayFirstActSceneName(actName,sceneName){
+      getPlayActSceneName(actName,sceneName){
        
-        let ca = this.act.find(a => a.name == actName)
-       return ca.scene.find(s => s.name == sceneName).name
+        const act = this.act.find(a => a.name == actName)
+       return act.scene.find(s => s.name == sceneName).name
       }
 
-      getPlayFirstActSceneTitle(actName,sceneName){
-        let b = this.act.find(a => a.name == actName)
-        return b.scene.find(s => s.name == sceneName).title
+      getPlayActSceneTitle(actName,sceneName){
+        const act = this.act.find(a => a.name == actName)
+        return act.scene.find(s => s.name == sceneName).title
       }
     
-      getPlayFirstActSceneStage(actName,sceneName){
-        let c = this.act.find(a => a.name == actName)
-        return c.scene.find(s => s.name == sceneName).stageDirection
+      getPlayActSceneStage(actName,sceneName){
+        const act = this.act.find(a => a.name == actName)
+        return  act.scene.find(s => s.name == sceneName).stageDirection
       }
 
-      getPlayFirstActSceneSpeech(actName,sceneName){
-        let d = this.act.find(a => a.name == actName)
-        return d.scene.find(s => s.name == sceneName).speech
+      getPlayActSceneSpeech(actName,sceneName){
+        const act = this.act.find(a => a.name == actName)
+        return  act.scene.find(s => s.name == sceneName).speech
       }
     
 

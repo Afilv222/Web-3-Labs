@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     playClass.act.find(act => {
       if(e.target.value == act.name){
          setSceneFilter(act)
+         setPersonaFilter()
          setPlayContent(e)
       }
      })
@@ -23,30 +24,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
    document.querySelector('#sceneList').addEventListener('change', (e) =>{
       setPlayContent(e)
+      setPersonaFilter()
+      document.querySelector('#txtHighlight').value = ''
+
    })
 
    document.querySelector('#btnHighlight').addEventListener('click', (e) =>{
-      console.log('hello world')
-   })
-   
-   document.querySelector('#playerList').addEventListener('change', (e) =>{
       setPlayContent(e)
 
+      if(document.querySelector('#txtHighlight').value != 0){
+         highlightWord(document.querySelector('#txtHighlight').value)
+      }
+
    })
-
-
+   
 
 
    function getSpeech(e){
-      let currSpeech = playClass.getPlayFirstActSceneSpeech(document.querySelector('#actList').value,document.querySelector('#sceneList').value)
-      if(e.target.id == 'playerList'){
-         return currSpeech.filter(s => s.speaker === e.target.value)
+      
+      const currSpeech = playClass.getPlayActSceneSpeech(document.querySelector('#actList').value,document.querySelector('#sceneList').value)
+      const playerValue =  document.querySelector('#playerList').value 
+      
+      if(e.target.id == 'btnHighlight'){
+         return currSpeech.filter(s => s.speaker === playerValue)
       }else{
          return currSpeech
       }
+
    }
-
-
 
 
    async function getData(api){
@@ -62,15 +67,13 @@ document.addEventListener("DOMContentLoaded", function() {
       
       let newurl = url
 
-      if (event.target != 0) {
+      if (event.target.value != 0) {
          newurl += `?name=${event.target.value}`
          
          const data = await getData(newurl);
 
          playClass = new Play(data)
 
-         console.log(playClass)
-         //defaultSceneFilters()
          defaultActFilter()
          defaultSceneFilters()
          setPersonaFilter()
@@ -86,8 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
       document.querySelector('#actList').replaceChildren()
       
       playClass.act.forEach(a => {
-          let actList = document.querySelector('#actList')
-          let option = document.createElement('option')
+         const actList = document.querySelector('#actList')
+         const option = document.createElement('option')
           option.value = a.name;
           option.textContent = a.name;
           actList.appendChild(option);
@@ -100,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
       document.querySelector('#sceneList').replaceChildren()
 
       currentAct.scene.forEach(s => {
-          let sceneList = document.querySelector('#sceneList')
-          let option = document.createElement('option')
+         const sceneList = document.querySelector('#sceneList')
+         const option = document.createElement('option')
          // option.value = c.;
 
           option.textContent = s.name;
@@ -111,11 +114,18 @@ document.addEventListener("DOMContentLoaded", function() {
    }
 
    function setPersonaFilter(){
-      document.querySelector('#playerList').replaceChildren()
+      let playerList = document.querySelector('#playerList')
+      let option = document.createElement('option')
 
+      document.querySelector('#playerList').replaceChildren()
+      option.value = 0 
+      option.textContent = 'All Players'
+
+      playerList.appendChild(option);
+      
       playClass.persona.forEach(p => {
-         let playerList = document.querySelector('#playerList')
-         let option = document.createElement('option')
+         playerList = document.querySelector('#playerList')
+          option = document.createElement('option')
 
          option.textContent = p.player;
          playerList.appendChild(option);
@@ -127,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function() {
          document.querySelector('#sceneList').replaceChildren()
 
          playClass.act[0].scene.forEach(s => {
-             let sceneList = document.querySelector('#sceneList')
-             let option = document.createElement('option')
+            const sceneList = document.querySelector('#sceneList')
+            const option = document.createElement('option')
             // option.value = c.;
 
              option.textContent = s.name;
@@ -137,92 +147,116 @@ document.addEventListener("DOMContentLoaded", function() {
       
    }
   
+
+   function highlightWord(targetWord) {
+      const paragraphs = document.querySelectorAll('.speech p');
+      paragraphs.forEach(function(paragraph) {
+
+         if(paragraph.textContent.toLowerCase().includes(targetWord.toLowerCase())){
+            const startIndex = paragraph.textContent.indexOf(targetWord.toLowerCase());
+
+            if (startIndex !== -1) {
+               const boldTag = document.createElement("b");
+             
+               const  boldText = document.createTextNode(targetWord.toLowerCase());
+         
+               // Split the paragraph's text content into two parts
+               const beforeBoldText = paragraph.textContent.substring(0, startIndex);
+               const afterBoldText = paragraph.textContent.substring(startIndex + boldText.length);
+
+               // Create a text node for the text before the bold part
+               const beforeTextNode = document.createTextNode(beforeBoldText);
+
+               // Create a text node for the text after the bold part
+               const afterTextNode = document.createTextNode(afterBoldText);
+
+               // Replace the original text content with the new structure
+               // Clear the existing text content
+               paragraph.textContent = '';
+               paragraph.appendChild(beforeTextNode); 
+               boldTag.appendChild(boldText); 
+               paragraph.appendChild(boldTag); 
+               paragraph.appendChild(afterTextNode); 
+             }
+         }
+           
+         /*
+         const words = paragraph.textContent.split(' ');
+
+          for (let i = 0; i < words.length; i++) {
+              if (words[i].toLowerCase() === targetWord.toLowerCase()) {
+                  words[i] = '<b>' + words[i] + '</b>';
+              }
+          }
+          paragraph.innerHTML = words.join(' ');
+         */
+      });
+  }
+
+
    function setPlayContent(e){
      
       document.querySelector('#playHere').replaceChildren()
 
-      let currAct = document.querySelector('#actList').value
-      let currScene = document.querySelector('#sceneList').value
-      let playHere = document.querySelector('#playHere')
-      let playTitle = document.createElement('h2')
+      const currAct = document.querySelector('#actList').value
+      const currScene = document.querySelector('#sceneList').value
+      const playHere = document.querySelector('#playHere')
+      const playTitle = document.createElement('h2')
       playTitle.textContent = playClass.title
-      let actHere = document.createElement('article')
+      const actHere = document.createElement('article')
       actHere.id = 'actHere'
-      let h3 = document.createElement('h3')
+      const h3 = document.createElement('h3')
       
-      let sceneHere = document.createElement('div')
+      const sceneHere = document.createElement('div')
       sceneHere.id = 'sceneHere'
       
-      let h4 = document.createElement('h4')
+      const h4 = document.createElement('h4')
 
-      let sceneTitle = document.createElement('p')
+      const sceneTitle = document.createElement('p')
       sceneTitle.className = 'title'
 
-      let stageDirection = document.createElement('p')
+      const stageDirection = document.createElement('p')
       stageDirection.className = 'direction'
 
-
-      //if (actFirstChild == 'ACT I'){
-         //console.log(play.act.find(a => a.name == actFirstChild))
          
-         h3.textContent = playClass.getFirstActName(currAct)
-         h4.textContent = playClass.getPlayFirstActSceneName(currAct,currScene)
-         sceneTitle.textContent = playClass.getPlayFirstActSceneTitle(currAct,currScene)
-         stageDirection.textContent = playClass.getPlayFirstActSceneStage(currAct,currScene)
+      h3.textContent = playClass.getActName(currAct)
+      h4.textContent = playClass.getPlayActSceneName(currAct,currScene)
+      sceneTitle.textContent = playClass.getPlayActSceneTitle(currAct,currScene)
+      stageDirection.textContent = playClass.getPlayActSceneStage(currAct,currScene)
 
-         actHere.appendChild(h3)
-         actHere.appendChild(sceneHere)
-         sceneHere.appendChild(h4)
-         sceneHere.appendChild(sceneTitle)
-         sceneHere.appendChild(stageDirection)
+      actHere.appendChild(h3)
+      actHere.appendChild(sceneHere)
+      sceneHere.appendChild(h4)
+      sceneHere.appendChild(sceneTitle)
+      sceneHere.appendChild(stageDirection)
 
-         getSpeech(e).forEach(s =>{
-            
-            let speech = document.createElement('div')
-            speech.className = 'speech'
+      getSpeech(e).forEach(s =>{
+         
+         const speech = document.createElement('div')
+         speech.className = 'speech'
 
-            let span = document.createElement('span')
-            span.textContent = s.speaker
-            
-            speech.appendChild(span)
-            
-            s.lines.forEach(line => {
-               let p = document.createElement('p')
-
-               p.textContent = line
-               speech.appendChild(p)
-            })
-
-            if('stagedir' in s){
-               let em = document.createElement('em')
-               em.textContent = s.stagedir
-               speech.appendChild(em)
-            }
-
-            sceneHere.appendChild(speech)
+         const span = document.createElement('span')
+         span.textContent = s.speaker
+         
+         speech.appendChild(span)
+         
+         s.lines.forEach(line => {
+            const p = document.createElement('p')
+            p.textContent = line
+            speech.appendChild(p)
          })
+         if('stagedir' in s){
+            const em = document.createElement('em')
+            em.textContent = s.stagedir
+            speech.appendChild(em)
+         }
+
+         sceneHere.appendChild(speech)
+      })
+
+
 
          playHere.appendChild(playTitle)
          playHere.appendChild(actHere)
-         
-      //}
-      
-      //playHere.appendChild(playTitle)
-      //div = classList 
    }
-   /*
-     To get a specific play, add play name via query string, 
-	   e.g., url = url + '?name=hamlet';
-	 
-	 https://www.randyconnolly.com/funwebdev/3rd/api/shakespeare/play.php?name=hamlet
-	 https://www.randyconnolly.com/funwebdev/3rd/api/shakespeare/play.php?name=jcaesar
-     
-   */
-	 
-   
-    /* note: you may get a CORS error if you test this locally (i.e., directly from a
-       local file). To work correctly, this needs to be tested on a local web server.  
-       Some possibilities: if using Visual Code, use Live Server extension; if Brackets,
-       use built-in Live Preview.
-    */
 });
