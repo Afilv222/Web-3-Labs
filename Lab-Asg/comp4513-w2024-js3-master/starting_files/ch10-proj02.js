@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const startIndex = paragraph.textContent.indexOf(targetWord.toLowerCase());
 
             if (startIndex !== -1) {
-               const boldTag = document.createElement("b");
+               const bold = document.createElement("b");
              
                const  boldText = document.createTextNode(targetWord.toLowerCase());
          
@@ -174,22 +174,12 @@ document.addEventListener("DOMContentLoaded", function() {
                // Clear the existing text content
                paragraph.textContent = '';
                paragraph.appendChild(beforeTextNode); 
-               boldTag.appendChild(boldText); 
-               paragraph.appendChild(boldTag); 
+               bold.appendChild(boldText); 
+               paragraph.appendChild(bold); 
                paragraph.appendChild(afterTextNode); 
              }
          }
            
-         /*
-         const words = paragraph.textContent.split(' ');
-
-          for (let i = 0; i < words.length; i++) {
-              if (words[i].toLowerCase() === targetWord.toLowerCase()) {
-                  words[i] = '<b>' + words[i] + '</b>';
-              }
-          }
-          paragraph.innerHTML = words.join(' ');
-         */
       });
   }
 
