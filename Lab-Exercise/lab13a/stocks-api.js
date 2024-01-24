@@ -6,12 +6,18 @@ const express = require('express');
 // create an express app 
 const app = express(); 
 
-const stocks = require('./scripts/data-provider.js');
-
 app.use('/static',express.static(path.join(__dirname,'')));
 console.log(path.join(__dirname,''))
 
+// set up route handling
+const router = require('./scripts/stock-router.js');
+router.handleAllStocks(app);
+router.handleSingleSymbol(app);
+router.handleNameSearch(app); 
+
+
 // return all the stocks when a root request arrives
+/*
 app.get('/', (req,resp) => { resp.json(stocks) } );
 
 // return just the requested stock
@@ -35,11 +41,11 @@ app.get('/stock/name/:substring', (req,resp) => {
     // return the matching stocks
     resp.json(matches);
 });
-
+*/
 
 
 // Use express to listen to port
-let port = 8080;
+let port = process.env.PORT; 
 
 app.listen(port, () => {
 console.log("Server running at port= " + port);
