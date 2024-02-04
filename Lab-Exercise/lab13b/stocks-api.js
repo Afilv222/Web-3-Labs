@@ -3,12 +3,17 @@ const express = require('express');
 
 // create an express app
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+//This will allow your Node application to access JSON data sent from a browser (yes, that’s
+//JSON data sent from the browser to the server).
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // handle requests for static resources
 app.use('/static', express.static(path.join(__dirname,'public')));
 // Require the upload middleware
+
+/*
 const upload = require('./scripts/uploader.js');
 
 // Set up a route for file uploads
@@ -16,6 +21,7 @@ app.post('/uploader', upload.single('fileElem'), (req, res) => {
   // Handle the uploaded file
   res.json({ message: 'File uploaded successfully!' });
 });
+*/
 
 // set up route handling
 const router = require('./scripts/stock-router.js');

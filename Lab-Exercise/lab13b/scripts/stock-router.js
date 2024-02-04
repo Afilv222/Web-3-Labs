@@ -10,7 +10,23 @@ const jsonMessage = (msg) => {
 
 const handleCurlTest = (app) => {
 
+   app.post('/test', (req,resp) => {
+      resp.send(req.body);
+      }); 
+   
+   //Notice that this handler will run when a PUT request is received.
+   app.put('/test', (req,resp) => {
+         resp.json(req.body);
+      });
 
+   app.get('/test', (req,resp) => {
+      resp.send('<html><em>Testing</em></html>');
+      });
+   
+   app.delete('/test', (req,resp) => {
+      resp.send('<html><em>Delete Tested</em></html>')
+      }); 
+        
 
 };
 
@@ -35,6 +51,22 @@ const handleSingleSymbol = (app) => {
          resp.json(jsonMessage(`Symbol ${symbolToFind} not found`));
       }
    });
+
+   // PUT request: Update specified stock using provided data
+   app.put('/stock/:symbol', (req,resp) => {
+      const symbolToUpd = req.params.symbol.toUpperCase();
+      // find index for stock with this symbol
+      let indx = stocks.findIndex(s => s.symbol === symbolToUpd);
+      // if didn't find it, then return message
+      if (indx < 0) {
+      resp.json(jsonMessage(`${symbolToUpd} not found`));
+      } else {
+      // symbol found, so replace its value with form values
+      stocks[indx] = req.body;
+      // let requestor know it worked
+      resp.json(jsonMessage(`${symbolToUpd} updated`));
+      }
+   }); 
 
 
 };
