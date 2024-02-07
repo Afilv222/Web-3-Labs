@@ -15,3 +15,16 @@ app.listen(port, () => {
   console.log("http://localhost:8080/290");
   console.log("http://localhost:8080/");
 });
+
+
+const provider = require('./scripts/painting-provider.js');
+
+// root endpoint will retrieve all paintings
+app.get("/", (req, resp) => {
+ provider.retrievePaintings(req, resp);
+});
+
+// this endpoint will retrieve single painting
+app.get("/:id", (req, resp) => {
+ provider.retrieveSinglePainting(req, resp);
+});

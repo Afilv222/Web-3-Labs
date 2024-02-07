@@ -41,6 +41,9 @@ const retrieveSinglePainting = (req, resp) => {
 };
 
 // helper function to convert a database record into its JSON representation
+//If you are implementing a JSON API using data retrieved from a SQL database, you may
+//need to manually convert the record data into the nested JSO required for the API.
+
 const convertRecordToJson = (row) => {
   if (!row) return;
   const obj = {
