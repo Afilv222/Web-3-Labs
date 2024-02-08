@@ -27,13 +27,34 @@ app.get('/f1/seasons', async (req, res) => {
 
 
 app.get('/f1/races', async (req, res) => {
-    
+    /*
     const {data, error} = await supabase
     .from('races')
     .select(`raceId, year, round, circuitId, name`)//Here we are specifying only these five fields
     .eq('year',2020) // This is adding a filter ,This is equivalent to “WHERE year=2020
     .order('round', { ascending: false }); // This is adding a filter ,ORDER BY round DESC” in SQL
+    */
 
+    const {data, error} = await supabase
+    .from('races')
+    .select(`raceId, year, round, circuitId, name,circuits (name,location,country)`)//Here we are specifying only these five fields
+    .eq('year',2020) // This is adding a filter ,This is equivalent to “WHERE year=2020
+    .order('round', { ascending: false }); // This is adding a filter ,ORDER BY round DESC” in SQL
+
+
+    res.send(data);
+});
+
+
+app.get('/f1/results/:race', async (req, res) => {
+    const {data, error} = await supabase
+    .from('results')
+    .select(`
+    resultId, positionOrder, races (year, name),
+    drivers (forename,surname), constructors (name)
+    `)
+    .eq('raceId',req.params.race) // This is adding a filter ,This is equivalent to where raceID = querystring
+    .order('positionOrder', { ascending: true });
     res.send(data);
 });
 
