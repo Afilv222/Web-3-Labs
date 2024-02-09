@@ -1,5 +1,7 @@
 const { createClient } = supabase;
 
+
+
 const supaUrl = 'https://oszcradjipmbbbuhmqjj.supabase.co';
 const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zemNyYWRqaXBtYmJidWhtcWpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDczMzE5MzYsImV4cCI6MjAyMjkwNzkzNn0.Bq4GiKABlMnq8QfHDXvkHF6Rzj9dEiAuHnx8wTEyry4';
 
