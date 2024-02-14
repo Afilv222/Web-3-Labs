@@ -19,10 +19,14 @@ app.get('/f1/status', async (req, res) => {
 
 //So what is this code doing? It is using supabase’s API to run the following query: SELECT * FROM seasons.
 app.get('/f1/seasons', async (req, res) => {
-    const {data, error} = await supabase
-    .from('seasons')
-    .select(); // if you leave this blank that means you are getting everything 
-    res.send(data);
+    try {
+        const {data, error} = await supabase
+        .from('seasons')
+        .select(); // if you leave this blank that means you are getting everything 
+        res.send(data);
+    } catch (error) {
+        
+    }
 });
 
 
