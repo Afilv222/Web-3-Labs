@@ -20,6 +20,10 @@ app.get('/f1/qualifying/:race', async (req, res) => {
         return;
     }
 
+    if (data.length === 0) {
+       return res.json({error:`Error no data found for ${req.params.race}`})
+    }
+
     res.send(data);
 });
 
@@ -37,6 +41,10 @@ app.get('/f1/races/:start/:end', async (req, res) => {
         return;
     }
 
+    if (data.length === 0) {
+        return res.json({error:`Error no data found for ${req.params.start} and ${req.params.end}`})
+    }
+
     res.send(data);
 });
 
@@ -52,6 +60,10 @@ app.get('/f1/drivers/name/:surname/limit/:limitVal', async (req, res) => {
     if (error) {
         console.error('Error fetching data:', error.message);
         return;
+    }
+
+    if (data.length === 0) {
+        return res.json({error:`Error no data found for ${req.params.surname}`})
     }
 
     res.send(data);
