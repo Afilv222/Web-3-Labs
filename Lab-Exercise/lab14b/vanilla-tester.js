@@ -43,10 +43,7 @@ async function fetchRaceData(year) {
 //This will populate the second column with the results for the selected race.
 async function fetchResultsData(raceid) {
     const { data, error } = await db.from('results')
-    .select(`
-    resultId, positionOrder, drivers (forename,surname),
-    constructors (name)
-    `)
+    .select(`resultId, positionOrder, drivers (forename,surname),constructors (name)`)
     .eq('raceId',raceid)
     .order('positionOrder', { ascending: true });
    
