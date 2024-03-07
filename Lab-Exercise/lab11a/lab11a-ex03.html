@@ -14,29 +14,53 @@
 <script type="text/babel">
 
 /* different ways to create functional components */
-const AnythingButton = () => {
-  return <button className="button">anything</button>
+const AnythingButton = (props) => {
+  const cls = "button is-" + props.size;
+  return <button className={cls}>{props.label}</button>
 }
 
+const Logo = (props) => {
+  return (
+  <img src={props.filename} alt={props.alt}
+  className={props.classes} />
+  )
+}
 
+/*
+Essentially, you are using ES6 object destructuring syntax to put the different props
+properties into separate variables.
+
+const Logo = ({filename,alt,classes}) => {
+  return (
+  <img src={filename} alt={alt} className={classes} />
+)
+}
+*/
 
 /* Combining components */
 const SimpleHeader = function(props) {
   return (
     <header>
+      <Logo filename={props.logo.filename} alt={props.logo.alt}classes={props.logo.classes} /> 
       <div className="buttons">
-        <AnythingButton />
+        <AnythingButton label="Something" size='large' />
       </div>
     </header>
   )
 }
 
 
+const img = {
+    classes: "image is-128x128",
+    filename: "images/AAPL.svg",
+    alt: "Apple Logo"
+}
 
 const container = document.querySelector('#react-container');   
 /* You will also need to modify this line */
 const root = ReactDOM.createRoot(container);
-root.render( <SimpleHeader  /> ); 
+//Notice that you can pass any object within props.
+root.render( <SimpleHeader logo={img}  /> ); 
   
 </script> 
         

@@ -28,12 +28,13 @@ const CardMovieImage = ({id,alt}) => {
 };
 
 const CardFooterButton = () => {
-
+    
+    const handleClick= () => {
+         alert("add to favorites");
+    } 
 
     return (
-        <button className="button card-footer-item" 
-		
-                  >
+        <button className="button card-footer-item" onClick={handleClick}>
             <span className="icon is-small">
                 <i className="fas fa-heart"></i>
             </span>

@@ -31,19 +31,19 @@ const comps =
     ];
 
 
-const Company = () => {
+const Company = (props) => {
     return (
       <article className="box media ">
         <div className="media-left">
               <figure className="image is-128x128">
-                <img src="" />
+                <img src={'images/' + props.data.symbol + ".svg"} />
               </figure>
         </div>
         <div className="media-content">
-            <h2></h2>
-            <p><strong>Symbol:</strong> </p>
-            <p><strong>Sector:</strong> </p>
-            <p><strong>HQ:</strong> </p>
+            <h2>{props.data.name}</h2>
+            <p><strong>{props.data.symbol}</strong> </p>
+            <p><strong>{props.data.sector}</strong> </p>
+            <p><strong>{props.data.hq}</strong> </p>
         </div>                    
       </article>
     );
@@ -52,6 +52,12 @@ const Company = () => {
 const container = document.querySelector('#react-container');  
 ReactDOM.createRoot(container).render( 
 
+//Here we are making use of the optional second parameter to the map function: it will
+//contain the index of the array element, which will also be unique
+
+<section className="content box">
+  { comps.map( (c,indx)=> <Company data={c}  key={indx} />) } 
+ </section>
 );  
          
 </script> 

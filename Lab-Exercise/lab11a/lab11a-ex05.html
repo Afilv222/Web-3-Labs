@@ -38,8 +38,16 @@ const CardFooterButton = () => {
 
 };
 
+const CardFooterCount = (props) => {
+ return (
+    <p className="card-footer-item is-size-6">
+        Favorited {props.count} Times!
+    </p>)
+}; 
+
 
 const MovieCard = (props) => {
+        
     return (
         <li className="column is-one-third">
             <div className="card">
@@ -49,7 +57,7 @@ const MovieCard = (props) => {
                     <p className="is-size-7">{props.tagline}</p>
                 </div>
                 <footer className="card-footer">
-
+                    { props.loggedIn ? <CardFooterButton /> :<CardFooterCount count={props.count} /> } 
                 </footer>                        
             </div>                
         </li>
@@ -78,7 +86,7 @@ const App = (props) => {
     <main className="section">  
         <article className="container">
             <ul className="columns is-multiline">
-                { movies.map(m=> <MovieCard id={m.id} title={m.title} tagline={m.tagline} key={m.id}/>) }              
+                { movies.map(m=> <MovieCard id={m.id} title={m.title} count={m.count} loggedIn={props.loggedIn} tagline={m.tagline} key={m.id}/>) }              
             </ul>
         </article>
       </main>      
@@ -87,7 +95,7 @@ const App = (props) => {
 };
 
 const container = document.querySelector('#react-container');  
-ReactDOM.createRoot(container).render(<App />);        
+ReactDOM.createRoot(container).render(<App loggedIn={true}/>);        
   
 </script> 
 </head>

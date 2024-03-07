@@ -10,20 +10,38 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <!--Initially, we will use the babel run-time library to convert JSX in the browser --> 
     <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>    
+
     
 <script type="text/babel">
 
 /* different ways to create functional components */
 
+const OkButton = () => {
+ return <button className="button is-primary">Ok</button>
+}
+const AnythingButton = () => {
+ const label = "Anything";
+ return <button className="button">{label}</button>
+} 
+
+const alternate = React.createElement( 'h2', {className: 'is-size-1'},'This is an alternate version of a component');
 
 
 /* Combining components */
 
+const SimpleHeader = function() {
+ return (
+ <div className="buttons">
+ <OkButton />
+ <AnythingButton />
+ </div>
+ )
+}
 
 const container = document.querySelector('#react-container');   
 /* You will also need to modify this line */
-ReactDOM.createRoot(container).render( ); 
-  
+//ReactDOM.createRoot(container).render( <SimpleHeader />); 
+ReactDOM.createRoot(container).render(alternate); 
 </script> 
         
         
