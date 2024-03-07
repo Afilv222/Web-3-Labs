@@ -1,12 +1,4 @@
-/* purple + orange + blues
- :root {
-  --list-back: #bccbde;
-  --details-back: #e6e9f0;
-  --header-back: #431c5d;
-  --button-back: #e05915;
-  --border-color: #c2dde6;
-  --box-back: white;
-} */
+
 
 :root {
   --list-back: #2b7a78;
@@ -51,7 +43,9 @@ code {
   color: white;
   padding: 10px;
 }
-
+.header-titles {
+  text-align: left;
+}
 .header-titles h1 {
   font-size: 2em;
 }

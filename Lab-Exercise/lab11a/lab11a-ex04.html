@@ -14,31 +14,45 @@
     
 <script type="text/babel" >
 
-class Company extends React.Component {
-  render() {
+const comps =     
+    [
+      {name: "FaceBook", symbol: "FB", 
+        sector: "Internet Software", 
+        hq: "Menlo Park, California"},
+      {name: "Alphabet Inc Class A", symbol: "GOOG", 
+        sector: "Information Technology", 
+        hq: "Mountain View, California"},
+      {name: "Apple", symbol: "AAPL", 
+        sector: "Information Technology", 
+        hq: "Cupertino, California"},
+      {name: "AT&T", symbol: "T", 
+        sector: "Telecommunications Services", 
+        hq: "Dallas, Texas"}
+    ];
+
+
+const Company = () => {
     return (
       <article className="box media ">
         <div className="media-left">
               <figure className="image is-128x128">
-                <img src="images/FB.svg" />
+                <img src="" />
               </figure>
         </div>
         <div className="media-content">
-            <h2>Facebook</h2>
-            <p><strong>Symbol:</strong> FB</p>
-            <p><strong>Sector:</strong> Internet Software and Services</p>
-            <p><strong>HQ:</strong> Menlo Park, California</p>
-        </div>
-        <div className="media-right">
-          <button className="button is-link">Edit</button>
-        </div>                     
+            <h2></h2>
+            <p><strong>Symbol:</strong> </p>
+            <p><strong>Sector:</strong> </p>
+            <p><strong>HQ:</strong> </p>
+        </div>                    
       </article>
     );
-  }
-}
+};
 
 const container = document.querySelector('#react-container');  
-ReactDOM.createRoot(container).render(<Company />);  
+ReactDOM.createRoot(container).render( 
+
+);  
          
 </script> 
         
@@ -53,7 +67,7 @@ ReactDOM.createRoot(container).render(<Company />);
                 React Tutorial
               </h1>
               <h2 class="subtitle">
-                Adding multiple instances
+                Reusing Components
               </h2>
             </div>
           </div>
