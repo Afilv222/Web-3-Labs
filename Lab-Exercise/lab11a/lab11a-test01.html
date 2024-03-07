@@ -16,6 +16,57 @@
     
 <script type="text/babel">
 
+const Header = () =>{
+   
+   const handleClick= () => {
+         alert("Changes have been edited");
+   }
+
+   return(
+      <header>
+         <h1>Test Your Knowledge #1</h1>
+      
+         <div className="media-right" onClick={handleClick}>
+            <button className="button is-link">Undo Edits</button>
+         </div>
+      </header>
+   )
+} 
+
+const PaintingList = (props) => {
+      return(
+         <section className="paintingList">
+            { props.data.map(m=> <PaintingListItem painting={m}  key={m.id} />) }
+         </section> 
+      )
+}
+
+const EditPaintingForm = (props) => {
+      return(
+         <section className="paintingForm">
+           <img src={'paintings/' + props.data.id + '.jpg'} alt={props.data.title}/> 
+           <div><label>Title</label><input type="text" name="title"  value={props.data.title} readOnly   /></div>
+           <div><label>Artist</label><input type="text" name="artist" value={props.data.artist} readOnly /></div>
+           <div><label>Year</label><input type="text" name="year" value={props.data.year} readOnly /></div>
+         </section> 
+      )
+}
+
+const  PaintingListItem = (props) =>{
+   const handleClick= () => {
+         alert(props.painting.title);
+   }
+
+   return (
+      <div className="row" onClick={handleClick}>
+         <img src={"paintings/square/" + props.painting.id + '.jpg'}  alt={props.painting.title}/>
+         <h3>{props.painting.title}</h3>
+         <p>{props.painting.artist}</p>
+         <p>{props.painting.year}</p>
+      </div>
+   )
+}
+
 const App = () => {
 
    //later you will learn how to fetch this data from an API 
@@ -31,9 +82,10 @@ const App = () => {
 
    return (
       <article className="app">
-         Add your header here
+         <Header />
          <div className="box">
-            Add your other components inside here
+            <PaintingList data={data}  />
+            <EditPaintingForm data={data[0]} />
          </div>
       </article>
    );
