@@ -1,4 +1,5 @@
-import Company from './components/Company.jsx';
+//import Company from './components/Company.jsx';
+import ControlledForm from './components/ControlledForm.jsx'; 
 import { useState } from 'react';
 
 function App() {
@@ -34,15 +35,17 @@ function App() {
       setComps(tempArray);
   }
 
-console.log("**** App render change="+change+" "+comps[0].name);
+//console.log("**** App render change="+change+" "+comps[0].name);
 
+return ( <ControlledForm />); 
+/*
   return (
     <section  className="content box">
       <button className="button is-success" onClick={handler}>Change = {change}</button> 
       { comps.map( (c,indx) => <Company data={c} key={indx}/>)  }
     </section>
   );
-
+*/
 }
 
 export default App
