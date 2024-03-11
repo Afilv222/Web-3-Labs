@@ -1,7 +1,9 @@
 //import Company from './components/Company.jsx';
-import ControlledForm from './components/ControlledForm.jsx'; 
-import { useState } from 'react';
+//import ControlledForm from './components/ControlledForm.jsx'; 
+import UncontrolledForm from './components/UncontrolledForm.jsx'; 
 
+//import { useState } from 'react';
+import { useState,createRef } from 'react';
 function App() {
 
   const [comps, setComps] = useState(      
@@ -36,8 +38,8 @@ function App() {
   }
 
 //console.log("**** App render change="+change+" "+comps[0].name);
-
-return ( <ControlledForm />); 
+ return ( <UncontrolledForm />); 
+//return ( <ControlledForm />); 
 /*
   return (
     <section  className="content box">
