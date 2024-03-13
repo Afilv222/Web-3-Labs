@@ -25,16 +25,38 @@ const CompanyBrowser= (props) => {
            hq: "Dallas, Texas",
            description: "Description for AT&T"}
        ]
-   );   
+   );
+
+    // indicates the selected company being edited in the form
+    const [selected, setSelected] = useState(null);
+    
+    // changes the selected company
+    const changeSelectedCompany = (symbol) => {
+    const sel = companies.find(c => c.symbol == symbol);
+    setSelected(sel)
+    }
+    
+    // updates state to reflect changes made in editing form
+    const saveCompany = (comp) => {
+      const newCompanies = [...companies];
+      const indx = newCompanies.findIndex(c => c.symbol == comp.symbol);
+
+      if (indx >= 0){
+        newCompanies[indx] = comp
+        setCompanies(newCompanies);
+        setSelected(comp);
+      }
 
 
+    } 
+  console.log(companies)
    return (
     <div className="container grid grid-cols-7 gap-4 text-lg text-gray-500 m-4 bg-gray-700 ">
       <div className="col-span-2 ">
-         <CompanyList  />
+         <CompanyList data={companies} changeCompany={changeSelectedCompany}  />
       </div>
       
-      <CompanyForm  />
+      <CompanyForm data={selected} save={saveCompany}  />
     </div>      
    )
 

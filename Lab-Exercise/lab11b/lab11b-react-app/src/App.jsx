@@ -2,6 +2,7 @@
 //import ControlledForm from './components/ControlledForm.jsx'; 
 //import UncontrolledForm from './components/UncontrolledForm.jsx'; 
 import TransferLists from './components/TransferLists.jsx'; 
+import CompanyBrowser from './components/CompanyBrowser.jsx'; 
 
 //import { useState } from 'react';
 import { useState } from 'react';
@@ -40,11 +41,13 @@ function App() {
 
 //console.log("**** App render change="+change+" "+comps[0].name);
  
-return (
-  <h1 className="text-3xl font-bold text-yellow-600 m-4">
-    Hello world!
-  </h1>
- );
+
+return ( <CompanyBrowser /> ); 
+// return (
+//   <h1 className="text-3xl font-bold text-yellow-600 m-4">
+//     Hello world!
+//   </h1>
+//  );
 
 
 //return (<TransferLists />)
