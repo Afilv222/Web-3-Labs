@@ -2,30 +2,27 @@
 import CompanyList from './CompanyList.jsx';
 import CompanyForm from './CompanyForm.jsx';
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 const CompanyBrowser= (props) => {
 
-   const [companies, setCompanies]  = useState(
-      [
-         {name: "FaceBook", symbol: "FB", 
-           sector: "Internet Software", 
-           hq: "Menlo Park, California",
-          description: "Description for Facebook"},
-         {name: "Alphabet Inc Class A", symbol: "GOOG", 
-           sector: "Information Technology", 
-           hq: "Mountain View, California",
-           description: "Description for Google/Alphabet"},
-         {name: "Apple", symbol: "AAPL", 
-           sector: "Information Technology", 
-           hq: "Cupertino, California",
-           description: "Description for Apple"},
-         {name: "AT&T", symbol: "T", 
-           sector: "Telecommunications Services", 
-           hq: "Dallas, Texas",
-           description: "Description for AT&T"}
-       ]
-   );
+   // initially the companies array will be empty
+ const [companies, setCompanies] = useState([]);
+
+  useEffect( () => {
+    console.log('useEffect');
+    // Here we are using a json file in the public folder.
+    // In a real-world example, you’d use the URL of a web API
+    //
+    const url = './companies-tech.json';
+    console.log(url)
+    if (companies.length <= 0) {
+      fetch(url)
+      .then( resp => resp.json() )
+      .then( data => setCompanies(data))
+      .catch( err => console.error(err));
+    }
+  },[]);
 
     // indicates the selected company being edited in the form
     const [selected, setSelected] = useState(null);

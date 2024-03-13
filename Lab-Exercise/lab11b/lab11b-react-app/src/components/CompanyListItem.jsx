@@ -1,4 +1,4 @@
-import editIcon from '../assets/react.svg';
+import editIcon from '../assets/pencil.svg';
 
 const CompanyListItem = (props) => {
 
