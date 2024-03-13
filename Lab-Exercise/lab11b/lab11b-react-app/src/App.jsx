@@ -39,7 +39,17 @@ function App() {
   }
 
 //console.log("**** App render change="+change+" "+comps[0].name);
- return (<TransferLists />)
+ 
+return (
+  <h1 className="text-3xl font-bold text-yellow-600 m-4">
+    Hello world!
+  </h1>
+ );
+
+
+//return (<TransferLists />)
+
+
 //return ( <UncontrolledForm />); 
 
 //return ( <ControlledForm />); 
