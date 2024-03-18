@@ -16,7 +16,9 @@ const MovieBrowser= (props) => {
         const sel = movies.find(c => c.id == id);
     
         favorites.push(sel)
+        #setFavorites(favorites...,movies)
         setFavorites(favorites)
+        
 
         console.log(favorites)
     }
