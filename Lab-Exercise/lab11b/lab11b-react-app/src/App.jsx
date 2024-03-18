@@ -42,7 +42,7 @@ function App() {
 //console.log("**** App render change="+change+" "+comps[0].name);
  
 
-return ( <CompanyBrowser /> ); 
+//return ( <CompanyBrowser /> ); 
 // return (
 //   <h1 className="text-3xl font-bold text-yellow-600 m-4">
 //     Hello world!
@@ -50,7 +50,7 @@ return ( <CompanyBrowser /> );
 //  );
 
 
-//return (<TransferLists />)
+return (<TransferLists />)
 
 
 //return ( <UncontrolledForm />); 

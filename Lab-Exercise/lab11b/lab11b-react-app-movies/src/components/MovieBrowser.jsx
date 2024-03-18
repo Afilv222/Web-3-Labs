@@ -2,16 +2,30 @@
 import Header from './Header'
 import MovieList from './MovieList'
 
+import { useState,useEffect } from 'react';
+import {movieData}  from "../../movie-data.js"; // Importing the data
 
 const MovieBrowser= (props) => {
 
+    // initially the companies array will be empty
+    const [movies, setMovies] = useState(movieData);
+    const [favorites, setFavorites] = useState([]);
 
+    
+    const addToFavorites = (id) =>{
+        const sel = movies.find(c => c.id == id);
+    
+        favorites.push(sel)
+        setFavorites(favorites)
+
+        console.log(favorites)
+    }
 
     return (
         <main className="section">
             <article className="container">
-                <Header/>
-                <MovieList/>
+                <Header fav={favorites} />
+                <MovieList data={movies} changeMovie={addToFavorites}/>
             </article>
         </main>
     )
