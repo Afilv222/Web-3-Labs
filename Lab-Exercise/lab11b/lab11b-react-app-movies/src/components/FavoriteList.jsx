@@ -1,10 +1,15 @@
-import SingleFavorite from './SingleMovie.jsx';
+import SingleFavorite from './SingleFavorite.jsx';
 
 const FavoriteList = (props) => {
+
+ // if no favorite has been selected, don’t display the favorites 
+  if (!props.favorite){
+    return
+  }
+
     return(
-        <div className="favorites">
-           
-            {props.favorite.map((c,indx) => <SingleFavorite sf={c} key={index}/>)}
+        <div className="flex flex-wrap">
+           {props.favorite.map((c,indx) => <SingleFavorite sf={c} key={indx}/>)}
         </div>
     )
 }
