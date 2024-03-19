@@ -4,7 +4,7 @@ const Header= (props) => {
  
     return(
         <section className="favorites">
-            <h1>Favorites</h1>
+            <h1 className='flex justify-start font-bold text-base/6'>Favorites</h1>
             <FavoriteList favorite={props.fav}  />
         </section>
     )

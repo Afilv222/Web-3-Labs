@@ -15,7 +15,7 @@ const SingleMovie = (props) => {
                         <img src={' https://image.tmdb.org/t/p/w342' + props.movie.poster + '.jpg'}alt={props.movie.title}/>
                     </figure>
                 </div>
-                <div className="card-content has-text-centered content-rectangle pt-6">
+                <div className="card-content has-text-centered content-rectangle pt-6 pb-4">
                     <h2 className='font-bold'>{props.movie.title}</h2>
                     <p className='pt-4'>
                         {props.movie.tagline}
